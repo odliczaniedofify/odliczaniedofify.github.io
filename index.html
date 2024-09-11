@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odliczanie do 20 września</title>
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        #countdown {
+            color: red;
+            font-size: 5rem;
+            font-weight: bold;
+            text-shadow:
+                -1px -1px 0 white,
+                 1px -1px 0 white,
+                -1px  1px 0 white,
+                 1px  1px 0 white;
+        }
+    </style>
+</head>
+<body>
+    <div id="countdown">01d 00h 52m 19s</div>
+
+    <script>
+        // Data docelowa: 20 września o godzinie 6:00
+        const targetDate = new Date("September 20, 2024 06:00:00").getTime();
+
+        const countdownElement = document.getElementById('countdown');
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const timeLeft = targetDate - now;
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+            if (timeLeft < 0) {
+                clearInterval(interval);
+                countdownElement.innerHTML = "Czas upłynął!";
+            }
+        }
+
+        const interval = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
